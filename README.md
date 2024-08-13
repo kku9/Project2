@@ -18,14 +18,14 @@
 
 | 이름 | 구경범 | 황기창 |
 | :------------: | :------------: | :------------: |
-|  | <img src="https://avatars.githubusercontent.com/u/174182609?v=4" width="150" /> | <img src="https://avatars.githubusercontent.com/u/154039941?v=4" /> |
+|  | <img src="https://avatars.githubusercontent.com/u/174182609?v=4" width="150" /> | <img src="https://avatars.githubusercontent.com/u/154039941?v=4" width="150" /> |
 | 깃허브 | [@kku9](https://github.com/kku9) | [@Hwang-gi](https://github.com/Hawng-gi) |
 | 역할 | Project Leader | Technology Leader|
 |  |  |  |  |
 
 | 이름 | 박현우 | 박지영 |
 | :------------: | :------------: |
-|  | <img src="https://avatars.githubusercontent.com/u/96418737?v=4" />| <img src="https://avatars.githubusercontent.com/u/174774514?v=4 /> |
+|  | <img src="https://avatars.githubusercontent.com/u/96418737?v=4" width="150" />| <img src="https://avatars.githubusercontent.com/u/174774514?v=4 width="150" /> |
 | 깃허브 | [@hyeeonwoo](https://github.com/hyeeonwoo) | [@jiyoung0226](https://github.com/jiyoung0226) |
 | 역할 | Engineer | Engineer |
 
