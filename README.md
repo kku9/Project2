@@ -25,7 +25,7 @@
 
 | 이름 | 박현우 | 박지영 |
 | :------------: | :------------: |
-|  | <img src="https://avatars.githubusercontent.com/u/96418737?v=4" width="150" />| <img src="https://avatars.githubusercontent.com/u/174774514?v=4 width="150" /> |
+|  | <img src="https://avatars.githubusercontent.com/u/96418737?v=4" width="150" />| <img src="https://avatars.githubusercontent.com/u/174774514?v=4" width="150" /> |
 | 깃허브 | [@hyeeonwoo](https://github.com/hyeeonwoo) | [@jiyoung0226](https://github.com/jiyoung0226) |
 | 역할 | Engineer | Engineer |
 
