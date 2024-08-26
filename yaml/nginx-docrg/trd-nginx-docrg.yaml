@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trd-prd-docrg
+  namespace: trd-frontend
+  labels:
+    app: trd-docrg
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: trd-docrg
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+       app: trd-docrg
+    spec:
+      containers:
+      - image: 
+        name: docrg
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 200m
+          limits:
+            memory: 256Mi
+            cpu: 200m
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: pv-trd-docrg
+          mountPath: /trd/docrg
+      volumes:
+      - name: pvcorder
+        persistentVolumeClaim:
+          claimName: pvc-trd-docrg
+      nodeSelector:
+       app: trd-docrg
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: trd-docrg-svc
+spec:
+  selector:
+    app: trd-docrg
+  type: NodePort
+  clusterIP: 10.100.100.105
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 35000

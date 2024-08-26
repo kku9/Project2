@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trd-prd-tomdoc
+  namespace: trd-backend
+  labels:
+    app: trd-doc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: trd-doc
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+       app: trd-doc
+    spec:
+      containers:
+      - image: 
+        name: tom-doc
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 400m
+          limits:
+            memory: 512Mi
+            cpu: 400m
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: pv-trd-doc
+          mountPath: /trd/doc
+      volumes:
+      - name: pvc-trd-doc
+        persistentVolumeClaim:
+          claimName: pvc-trd-doc
+      nodeSelector:
+       app: trd-doc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: trd-doc-svc
+spec:
+  selector:
+    app: trd-doc
+  type: ClusterIP
+  clusterIP: 10.100.100.104
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
