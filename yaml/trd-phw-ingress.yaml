@@ -57,7 +57,7 @@ spec:
         persistentVolumeClaim:
           claimName: pvc-testweb
       nodeSelector:
-        kubernetes.io/hostname: ip-10-250-2-188.ap-northeast-2.compute.internal
+        kubernetes.io/hostname: ip-10-250-2-5.ap-northeast-2.compute.internal
 ---
 apiVersion: v1
 kind: Service
@@ -169,7 +169,7 @@ spec:
         persistentVolumeClaim:
           claimName: pvc-test
       nodeSelector:
-        kubernetes.io/hostname: ip-10-250-2-188.ap-northeast-2.compute.internal
+        kubernetes.io/hostname: ip-10-250-2-5.ap-northeast-2.compute.internal
 
 ---
 
