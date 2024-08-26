@@ -44,6 +44,37 @@ spec:
     requests:
       storage: 5Gi
 ---
+
+#tomcat-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-test
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-sc
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-01c4a0f6cf827cabe
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-test
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 5Gi
+---
+
 #nginx.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -118,7 +149,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /index.html
+      - path: /
         pathType: Prefix
         backend:
           service:
@@ -126,35 +157,6 @@ spec:
             port:
               number: 80
 
----
-#tomcat-pv.yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-test
-spec:
-  capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: efs-sc
-  csi:
-    driver: efs.csi.aws.com
-    volumeHandle: fs-01c4a0f6cf827cabe
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-test
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: efs-sc
-  resources:
-    requests:
-      storage: 5Gi
 ---
 #tomcat.yaml
 apiVersion: apps/v1
