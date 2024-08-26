@@ -14,7 +14,36 @@ parameters:
   subPathPattern: "${.PVC.namespace}/${.PVC.name}" # optional
   ensureUniqueDirectory: "true" # optional
   reuseAccessPoint: "false" # optional
-  
+
+#nginx-pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-testweb
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-sc
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-01c4a0f6cf827cabe
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-testweb
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 5Gi
+
 #nginx.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -98,11 +127,12 @@ spec:
               number: 80
 
 
-#nginx-pv.yaml
+
+#tomcat-pv.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv-testweb
+  name: pv-test
 spec:
   capacity:
     storage: 5Gi
@@ -118,7 +148,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-testweb
+  name: pvc-test
 spec:
   accessModes:
     - ReadWriteMany
@@ -187,31 +217,3 @@ spec:
   type: ClusterIP
   clusterIP: 172.20.20.20
 
-#tomcat-pv.yaml
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-test
-spec:
-  capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: efs-sc
-  csi:
-    driver: efs.csi.aws.com
-    volumeHandle: fs-01c4a0f6cf827cabe
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc-test
-spec:
-  accessModes:
-    - ReadWriteMany
-  storageClassName: efs-sc
-  resources:
-    requests:
-      storage: 5Gi
