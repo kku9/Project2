@@ -14,7 +14,7 @@ parameters:
   subPathPattern: "${.PVC.namespace}/${.PVC.name}" # optional
   ensureUniqueDirectory: "true" # optional
   reuseAccessPoint: "false" # optional
-
+---
 #nginx-pv.yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -43,7 +43,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
+---
 #nginx.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -126,8 +126,7 @@ spec:
             port:
               number: 80
 
-
-
+---
 #tomcat-pv.yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -156,7 +155,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
+---
 #tomcat.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -202,7 +201,6 @@ spec:
         kubernetes.io/hostname: ip-10-250-2-5.ap-northeast-2.compute.internal
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
