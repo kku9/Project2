@@ -51,13 +51,13 @@ spec:
           httpGet:
             path: /index.jsp # HTTP GET 요청을 사용하여 /index.jsp 경로에서 컨테이너의 상태를 검사
             port: 80
-          initialDelaySeconds: 120 # 처음 검사할 때는 60초 동안 대기
+          initialDelaySeconds: 60 # 처음 검사할 때는 60초 동안 대기
           periodSeconds: 10 # 처음 검사할 때는 60초 동안 대기
         readinessProbe:
           httpGet:
             path: /index.jsp
             port: 80
-          initialDelaySeconds: 120 # 처음 검사할 때는 120초 동안 대기
+          initialDelaySeconds: 60 # 처음 검사할 때는 120초 동안 대기
           periodSeconds: 10 # 이후 매 10초마다
           successThreshold: 1 # 컨테이너가 준비 상태로 간주되기 위해 연속적으로 성공해야 하는 검사 횟수
           failureThreshold: 5 # 컨테이너 준비 상태 검사가 5번을 실패해야 준비 상태가 아니라고 판ㄷ
@@ -131,13 +131,13 @@ spec:
           httpGet:
             path: /sign.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /sign.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 5
@@ -210,13 +210,13 @@ spec:
           httpGet:
             path: /login.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /login.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 5
@@ -290,13 +290,13 @@ spec:
           httpGet:
             path: /docs-search.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /docs-search.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 5
@@ -369,13 +369,13 @@ spec:
           httpGet:
             path: /docs-register.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /docs-register.jsp
             port: 80
-          initialDelaySeconds: 120
+          initialDelaySeconds: 60
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 5
