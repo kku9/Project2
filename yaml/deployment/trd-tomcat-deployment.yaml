@@ -209,7 +209,7 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       containers:
       - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev2.5
-        name: tomalb
+        name: trd-tomlogin
         ports:
         - containerPort: 8080
         resources:
