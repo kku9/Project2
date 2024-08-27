@@ -324,7 +324,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trd-docrg
+  name: trd-prd-docrg
   namespace: trd-frontend
   labels:
     app: docrg-app
