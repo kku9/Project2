@@ -44,13 +44,13 @@ spec:
             cpu: 75m
         livenessProbe:
           httpGet:
-            path: /
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
@@ -120,13 +120,13 @@ spec:
             cpu: 75m
         livenessProbe:
           httpGet:
-            path: /
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
@@ -196,13 +196,13 @@ spec:
             cpu: 75m
         livenessProbe:
           httpGet:
-            path: /
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
@@ -274,13 +274,13 @@ spec:
             cpu: 75m
         livenessProbe:
           httpGet:
-            path: /docs-search.jsp
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /docs-search.jsp
+            path: /index.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
