@@ -241,19 +241,19 @@ spec:
 
 ---
 
-# nginx-doc.yaml
+# nginx-book.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trd-prd-doc
+  name: trd-prd-book
   namespace: trd-frontend
   labels:
-    app: doc-app
+    app: book-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: doc-app
+      app: book-app
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -262,7 +262,7 @@ spec:
   template:
     metadata:
       labels:
-        app: doc-app
+        app: book-app
     spec:
       affinity:
         podAntiAffinity:
@@ -272,11 +272,11 @@ spec:
               - key: app
                 operator: In
                 values:
-                - doc-app
+                - book-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:nginxdocv1.0
-        name: trd-doc
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:nginxbookv1.0
+        name: trd-book
         ports:
         - containerPort: 80
         resources:
@@ -306,11 +306,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: trd-doc-svc
+  name: trd-book-svc
   namespace: trd-frontend
 spec:
   selector:
-    app: doc-app
+    app: book-app
   type: NodePort
   ports:
     - protocol: TCP
