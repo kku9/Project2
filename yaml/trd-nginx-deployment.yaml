@@ -22,8 +22,7 @@ spec:
         app: index-app
     spec:
       affinity:
-        podAntiAffinity:  # 특정 라벨 셀렉터와 일치하는 다른 Pod와 동일한 노드에 스케줄링되지 않도록 하는 규칙을 설정 
-         
+        podAntiAffinity:  # 특정 라벨 셀렉터와 일치하는 다른 Pod와 동일한 노드에 스케줄링되지 않도록 하는 규칙을 설정          
          # app 키가 index-app 값을 가진 라벨 셀렉터와 일치하는 Pod들이 동일한 topologyKey 
          # (즉, kubernetes.io/hostname)를 가진 노드에 함께 스케줄링되지 않도록 설정 
           requiredDuringSchedulingIgnoredDuringExecution:
