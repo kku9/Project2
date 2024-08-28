@@ -25,7 +25,7 @@ spec:
     kind: Deployment
     name: trd-prd-sign
   targetCPUUtilizationPercentage: 50
-  ---
+---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
