@@ -1,16 +1,16 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="java.util.logging.Logger" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
-    // 데이터베이스 연결 정보
-    String jdbcUrl = "jdbc:mariadb://dbtest.c1ik2ys6up6a.ap-northeast-2.rds.amazonaws.com:3306/nolgaja_db";
-    String dbUser = "admin";
-    String dbPassword = "qkrgusdn!!";
+    // Initialize logger
+    Logger logger = Logger.getLogger("ReviewLogger");
 
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    int rowNumber = 1; // 번호를 순서대로 매기기 위한 변수
+    // Initialize database connection variables
+    String jdbcUrl = "jdbc:mariadb://dbtest.c1ik2ys6up6a.ap-northeast-2.rds.amazonaws.com:3306/nolgaja_db";
+    String dbUser = System.getenv("DB_USER"); // Fetch user from environment variables
+    String dbPassword = System.getenv("DB_PASSWORD"); // Fetch password from environment variables
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,10 +26,10 @@
     <script src="../main.js" defer></script>
     <title>게시판 - 놀러가자</title>
     <style>
+        /* Move this to external CSS file for maintainability */
         h1 {
             margin-bottom: 100px; /* 제목과 표 사이의 간격 */
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -49,13 +49,9 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-
-        /* 후기 셀 스타일 */
         .review-cell {
             position: relative;
         }
-
-        /* 후기 내용에 마우스를 올리면 버튼이 나타남 */
         .review-cell button {
             display: none;
             position: absolute;
@@ -68,7 +64,6 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
         .review-cell:hover button {
             display: inline-block;
         }
@@ -112,13 +107,12 @@
                 </thead>
                 <tbody>
                     <%
-                        try {
-                            Class.forName("org.mariadb.jdbc.Driver");
-                            conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+                        // Use try-with-resources for better resource management
+                        try (Connection conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+                             PreparedStatement pstmt = conn.prepareStatement("SELECT accommodation_name, rating, review_content, created_at FROM reviews ORDER BY review_id DESC");
+                             ResultSet rs = pstmt.executeQuery()) {
 
-                            String sql = "SELECT accommodation_name, rating, review_content, created_at FROM reviews ORDER BY review_id DESC";
-                            pstmt = conn.prepareStatement(sql);
-                            rs = pstmt.executeQuery();
+                            int rowNumber = 1; // 번호를 순서대로 매기기 위한 변수
 
                             while(rs.next()) {
                                 String accommodationName = rs.getString("accommodation_name");
@@ -128,10 +122,10 @@
                     %>
                     <tr>
                         <td><%= rowNumber++ %></td> <!-- 번호를 1씩 증가 -->
-                        <td><%= accommodationName %></td>
+                        <td><c:out value="${accommodationName}" /></td>
                         <td><%= rating %></td>
                         <td class="review-cell">
-                            <%= reviewContent %>
+                            <c:out value="${reviewContent}" />
                             <button onclick="alert('후기 내용을 클릭했습니다!')">클릭</button>
                         </td>
                         <td><%= createdAt %></td>
@@ -139,11 +133,7 @@
                     <%
                             }
                         } catch(Exception e) {
-                            e.printStackTrace();
-                        } finally {
-                            if(rs != null) try { rs.close(); } catch(SQLException e) { e.printStackTrace(); }
-                            if(pstmt != null) try { pstmt.close(); } catch(SQLException e) { e.printStackTrace(); }
-                            if(conn != null) try { conn.close(); } catch(SQLException e) { e.printStackTrace(); }
+                            logger.severe("Database error: " + e.getMessage());
                         }
                     %>
                 </tbody>
