@@ -121,13 +121,13 @@ spec:
             cpu: 100m
         livenessProbe:
           httpGet:
-            path: /sign.jsp
+            path: /signup.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /sign.jsp
+            path: /signup.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
