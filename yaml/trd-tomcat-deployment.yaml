@@ -395,7 +395,7 @@ spec:
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /docs-registe.jsp
+            path: /docs-register.jsp
             port: 8080
           initialDelaySeconds: 60
           periodSeconds: 10
