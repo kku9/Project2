@@ -23,13 +23,13 @@ spec:
             name: trd-index-svc
             port:
               number: 80
-      - path: /signup.jsp
-        pathType: Prefix
-        backend:
-          service:
-            name: trd-sign-svc
-            port:
-              number: 80
+#      - path: /signup.jsp
+#        pathType: Prefix
+#        backend:
+#          service:
+#            name: trd-sign-svc
+#            port:
+#              number: 80
 #      - path: /login.jsp
 #        pathType: Prefix
 #        backend:
