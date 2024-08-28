@@ -38,10 +38,10 @@ spec:
         resources:
           requests:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
           limits:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
         livenessProbe:
           httpGet:
             path: /index.jsp
@@ -114,10 +114,10 @@ spec:
         resources:
           requests:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
           limits:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
         livenessProbe:
           httpGet:
             path: /signup.jsp
@@ -190,10 +190,10 @@ spec:
         resources:
           requests:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
           limits:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
         livenessProbe:
           httpGet:
             path: /login.jsp
@@ -267,10 +267,10 @@ spec:
         resources:
           requests:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
           limits:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
         livenessProbe:
           httpGet:
             path: /docs-search.jsp
@@ -344,10 +344,10 @@ spec:
         resources:
           requests:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
           limits:
             memory: 64Mi
-            cpu: 50m
+            cpu: 75m
         livenessProbe:
           httpGet:
             path: /docs-register.jsp
