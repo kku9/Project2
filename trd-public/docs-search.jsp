@@ -1,17 +1,5 @@
 <%@ page import="java.sql.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<%
-    // 데이터베이스 연결 정보
-    String jdbcUrl = "jdbc:mariadb://trd-prd-rds-master.crgoyc04k2rj.ap-northeast-2.rds.amazonaws.com:3306/nolgaja_db";
-    String dbUser = "boss";
-    String dbPassword = "sd12!fg34";
-
-    Connection conn = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    int rowNumber = 1; // 번호를 순서대로 매기기 위한 변수
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -111,6 +99,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <%
+                     // 데이터베이스 연결 정보
+                        String jdbcUrl = "jdbc:mariadb://trd-prd-rds-master.crgoyc04k2rj.ap-northeast-2.rds.amazonaws.com:3306/nolgaja_db";
+                        String dbUser = "boss";
+                        String dbPassword = "sd12!fg34";
+
+                        Connection conn = null;
+                        PreparedStatement pstmt = null;
+                        ResultSet rs = null;
+                        int rowNumber = 1; // 번호를 순서대로 매기기 위한 변수
+                    %>
                     <%
                         try {
                             Class.forName("org.mariadb.jdbc.Driver");
