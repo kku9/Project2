@@ -23,31 +23,31 @@ spec:
             name: trd-index-svc
             port:
               number: 80
-#      - path: /signup.jsp
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: trd-sign-svc
-#            port:
-#              number: 80
-#      - path: /login.jsp
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: trd-login-svc
-#            port:
-#              number: 80
-#      - path: /docs-search.jsp
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: trd-doc-svc
-#            port:
-#              number: 80
-#      - path: /docs-register.jsp
-#        pathType: Prefix
-#        backend:
-#          service:
-#            name: trd-docrg-svc
-#            port:
-#              number: 80
+      - path: /signup.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-sign-svc
+            port:
+              number: 80
+      - path: /login.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-login-svc
+            port:
+              number: 80
+      - path: /docs-search.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-doc-svc
+            port:
+              number: 80
+      - path: /docs-register.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-docrg-svc
+            port:
+              number: 80

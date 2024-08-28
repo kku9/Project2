@@ -1,3 +1,4 @@
+# nginx-index.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -21,7 +22,10 @@ spec:
         app: index-app
     spec:
       affinity:
-        podAntiAffinity:
+        podAntiAffinity:  # 특정 라벨 셀렉터와 일치하는 다른 Pod와 동일한 노드에 스케줄링되지 않도록 하는 규칙을 설정 
+         
+         # app 키가 index-app 값을 가진 라벨 셀렉터와 일치하는 Pod들이 동일한 topologyKey 
+         # (즉, kubernetes.io/hostname)를 가진 노드에 함께 스케줄링되지 않도록 설정 
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
@@ -35,6 +39,7 @@ spec:
         name: trd-index
         ports:
         - containerPort: 80
+        # resources는 128Mi memory와 100m cpu로 guaranteed 상태 보장
         resources:
           requests:
             memory: 128Mi
@@ -44,18 +49,19 @@ spec:
             cpu: 100m
         livenessProbe:
           httpGet:
-            path: /index.jsp
+            path: /index.jsp # HTTP GET 요청을 사용하여 /index.jsp 경로에서 컨테이너의 상태를 검사
             port: 80
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 60 # 처음 검사할 때는 60초 동안 대기
+          periodSeconds: 10 # 처음 검사할 때는 60초 동안 대기
         readinessProbe:
           httpGet:
             path: /index.jsp
             port: 80
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 5
+          initialDelaySeconds: 60 # 처음 검사할 때는 60초 동안 대기
+          periodSeconds: 10 # 이후 매 10초마다
+          successThreshold: 1 # 컨테이너가 준비 상태로 간주되기 위해 연속적으로 성공해야 하는 검사 횟수
+          failureThreshold: 5 # 컨테이너 준비 상태 검사가 5번을 실패해야 준비 상태가 아니라고 판ㄷ
+
 
 ---
 
@@ -72,9 +78,11 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-
+  clusterIP: 172.20.10.10
+  
 ---
 
+# nginx-sign.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -121,13 +129,13 @@ spec:
             cpu: 100m
         livenessProbe:
           httpGet:
-            path: /signup.jsp
+            path: /sign.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /signup.jsp
+            path: /sign.jsp
             port: 80
           initialDelaySeconds: 60
           periodSeconds: 10
@@ -149,13 +157,14 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  # clusterIP는 클러스터가 자동으로 할당하도록 합니다.
-
+  clusterIP: 172.20.10.30
+      
 ---
-
+ 
+ # nginx-login.yaml
 apiVersion: apps/v1
 kind: Deployment
-metadata:
+ metadata:
   name: trd-prd-login
   namespace: trd-frontend
   labels:
@@ -227,10 +236,12 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  # clusterIP는 클러스터가 자동으로 할당하도록 합니다.
+  clusterIP: 172.20.10.50
+
 
 ---
 
+# nginx-doc.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -305,12 +316,15 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  # clusterIP는 클러스터가 자동으로 할당하도록 합니다.
+  clusterIP: 172.20.10.70
 
+---
+
+# nginx-docrg.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trd-docrg
+  name: trd-prd-docrg
   namespace: trd-frontend
   labels:
     app: docrg-app
@@ -381,5 +395,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-
-         
+  clusterIP: 172.20.10.90
