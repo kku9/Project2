@@ -3,7 +3,7 @@
 <%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,10 +15,9 @@
     <script src="./js/main.js" defer></script>
     <title>놀러가자!</title>
 </head>
-
 <body>
 
-    <!-- navbar -->
+    <!-- Navbar -->
     <nav id="navbar">
         <div class="navbar_logo">
             <a href="index1.jsp"><i class="fas fa-star"></i> 놀러가자</a>
@@ -39,11 +38,12 @@
         </button>
     </nav>
 
+    <!-- Review Registration Form -->
     <section class="section">
         <div class="section_container">
             <div class="reviewRegiForm">
                 <h1>숙소 리뷰 등록</h1>
-                <form action="docs-register.jsp" method="post">
+                <form action="docs-registerlogin.jsp" method="post">
                     <div class="form-group">
                         <label for="user_id">ID</label>
                         <input type="text" id="user_id" name="user_id" class="reviewRegister" value="<%= (String)session.getAttribute("user_id") %>" readonly />
@@ -78,6 +78,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer id="footer">
         <div class="footer_logo">
             <div class="navbar_logo">
@@ -101,7 +102,7 @@
     </footer>
 
     <%
-        // 데이터베이스 연결 정보
+        // Database connection information
         String jdbcUrl = "jdbc:mariadb://trd-prd-rds-master.crgoyc04k2rj.ap-northeast-2.rds.amazonaws.com:3306/nolgaja_db?useUnicode=true&characterEncoding=utf8mb4";
         String dbUser = "boss";
         String dbPassword = "sd12!fg34";
@@ -111,13 +112,13 @@
 
         if(request.getMethod().equalsIgnoreCase("POST")) {
             try {
-                // MariaDB 드라이버 로드
+                // Load MariaDB driver
                 Class.forName("org.mariadb.jdbc.Driver");
 
-                // 데이터베이스 연결
+                // Connect to the database
                 conn = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
 
-                // 사용자 데이터 삽입
+                // Insert user data into the database
                 String sql = "INSERT INTO reviews (user_id, accommodation_name, rating, review_content) VALUES (?, ?, ?, ?)";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, request.getParameter("user_id"));
@@ -133,10 +134,11 @@
                 }
             } catch(Exception e) {
                 e.printStackTrace();
-                out.println("<script>alert('오류가 발생했습니다: " + e.getMessage() + "');</script>");
+                out.println("<script>alert('오류가 발생했습니다: " + e.getMessage() + "'); location.href='docs-registerlogin.jsp';</script>");
             } finally {
-                if(pstmt != null) pstmt.close();
-                if(conn != null) conn.close();
+                // Close resources
+                if(pstmt != null) try { pstmt.close(); } catch(SQLException e) { e.printStackTrace(); }
+                if(conn != null) try { conn.close(); } catch(SQLException e) { e.printStackTrace(); }
             }
         }
     %>
