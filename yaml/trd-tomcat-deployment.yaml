@@ -32,7 +32,7 @@ spec:
                 - index-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev1.0
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.2
         name: trd-tomindex
         ports:
         - containerPort: 8080
