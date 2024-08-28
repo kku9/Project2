@@ -32,7 +32,7 @@ spec:
                 - index-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.4
         name: trd-tomindex
         ports:
         - containerPort: 8080
@@ -118,7 +118,7 @@ spec:
                 - sign-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.4
         name: tom-sign
         ports:
         - containerPort: 8080
@@ -204,7 +204,7 @@ spec:
                 - login-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.4
         name: tomalb
         ports:
         - containerPort: 8080
@@ -290,7 +290,7 @@ spec:
                 - doc-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.4
         name: trd-tomdoc
         ports:
         - containerPort: 8080
@@ -376,7 +376,7 @@ spec:
                 - docrg-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.4
         name: trd-tomdocrg
         ports:
         - containerPort: 8080
