@@ -37,11 +37,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 64Mi
-            cpu: 75m
+            memory: 128Mi
+            cpu: 100m
           limits:
-            memory: 64Mi
-            cpu: 75m
+            memory: 128Mi
+            cpu: 100m
         livenessProbe:
           httpGet:
             path: /index.jsp
@@ -113,11 +113,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 64Mi
-            cpu: 75m
+            memory: 128Mi
+            cpu: 100m
           limits:
-            memory: 64Mi
-            cpu: 75m
+            memory: 128Mi
+            cpu: 100m
         livenessProbe:
           httpGet:
             path: /index.jsp
