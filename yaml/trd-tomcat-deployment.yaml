@@ -264,10 +264,10 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trd-prd-tomdoc
+  name: trd-prd-tombook
   namespace: trd-backend
   labels:
-    app: doc-app
+    app: book-app
 spec:
   replicas: 2
   selector:
@@ -281,7 +281,7 @@ spec:
   template:
     metadata:
       labels:
-        app: doc-app
+        app: book-app
     spec:
       affinity:
         podAntiAffinity:
@@ -291,7 +291,7 @@ spec:
               - key: app
                 operator: In
                 values:
-                - doc-app
+                - book-app
             topologyKey: "kubernetes.io/hostname"
       containers:
       - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.5
@@ -307,124 +307,38 @@ spec:
             cpu: 200m
         livenessProbe:
           httpGet:
-            path: /docs-search.jsp
+            path: /product-search.jsp
             port: 8080
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           httpGet:
-            path: /docs-search.jsp
+            path: /product-search.jsp
             port: 8080
           initialDelaySeconds: 60
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 5
         volumeMounts:
-        - name: pv-trddoc
-          mountPath: /data/doc
+        - name: pv-trdbook
+          mountPath: /data/book
       volumes:
-      - name: pv-trddoc
+      - name: pv-trdbook
         persistentVolumeClaim:
-          claimName: pvc-trddoc
+          claimName: pvc-trdbook
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: trd-tomdoc-svc
+  name: trd-tombook-svc
   namespace: trd-backend
 spec:
   selector:
-    app: doc-app
+    app: book-app
   type: ClusterIP
   clusterIP: 172.20.10.80
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-      
----
-
-# tom-docrg.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: trd-prd-tomdocrg
-  namespace: trd-backend
-  labels:
-    app: docrg-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: docrg-app
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 25%
-      maxSurge: 25%
-  template:
-    metadata:
-      labels:
-        app: docrg-app
-    spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - docrg-app
-            topologyKey: "kubernetes.io/hostname"
-      containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.5
-        name: trd-tomdocrg
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            memory: 256Mi
-            cpu: 200m
-          limits:
-            memory: 256Mi
-            cpu: 200m
-        livenessProbe:
-          httpGet:
-            path: /docs-register.jsp
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /docs-registe.jsp
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 5
-        volumeMounts:
-        - name: pv-trddocrg
-          mountPath: /data/docrg
-      volumes:
-      - name: pv-trddocrg
-        persistentVolumeClaim:
-          claimName: pvc-trddocrg
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: tomdocrg-svc
-  namespace: trd-backend
-spec:
-  selector:
-    app: docrg-app
-  type: ClusterIP
-  clusterIP: 172.20.10.100
   ports:
     - protocol: TCP
       port: 8080
