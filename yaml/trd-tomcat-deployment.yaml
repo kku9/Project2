@@ -260,7 +260,7 @@ spec:
 
 ---
 
-# tom-doc.yaml
+# tom-book.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -294,8 +294,8 @@ spec:
                 - book-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.5
-        name: trd-tomdoc
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.6
+        name: trd-tombook
         ports:
         - containerPort: 8080
         resources:
