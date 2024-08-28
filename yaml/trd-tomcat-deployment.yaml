@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trd-prd-tomindex
+  name: trd-tomindex
   namespace: trd-backend
   labels:
     app: index-app
@@ -22,10 +22,7 @@ spec:
         app: index-app
     spec:
       affinity:
-        podAntiAffinity:  # 특정 라벨 셀렉터와 일치하는 다른 Pod와 동일한 노드에 스케줄링되지 않도록 하는 규칙을 설정
-
-        # app 키가 index-app 값을 가진 라벨 셀렉터와 일치하는 Pod들이 동일한 topologyKey 
-         # (즉, kubernetes.io/hostname)를 가진 노드에 함께 스케줄링되지 않도록 설정 
+        podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
@@ -34,16 +31,11 @@ spec:
                 values:
                 - index-app
             topologyKey: "kubernetes.io/hostname"
-#         topologySpreadConstraints:
-#           - maxSkew: 1
-#             topologyKey: 
-#            whenUnsatisfiable: ScheduleAnyway
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.2
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev1.0
         name: trd-tomindex
         ports:
         - containerPort: 8080
-         # resources는 128Mi memory와 100m cpu로 guaranteed 상태 보장
         resources:
           requests:
             memory: 256Mi
@@ -51,27 +43,27 @@ spec:
           limits:
             memory: 256Mi
             cpu: 200m
-#        livenessProbe:
-#          httpGet:
-#            path: /index.jsp # HTTP GET 요청을 사용하여 /index.jsp 경로에서 컨테이너의 상태를 검사
-#            port: 8080
-#          initialDelaySeconds: 60
-#          periodSeconds: 10
-#        readinessProbe:
-#          httpGet:
-#            path: /index.jsp
-#            port: 8080
-#          initialDelaySeconds: 60 # 처음 검사할 때는 60초 동안 대기
-#          periodSeconds: 10 # 처음 검사할 때는 60초 동안 대기
-#          successThreshold: 1 # 컨테이너가 준비 상태로 간주되기 위해 연속적으로 성공해야 하는 검사 횟수
-#          failureThreshold: 5 # 컨테이너 준비 상태 검사가 5번을 실패해야 준비 상태가 아니라고 판단
+        livenessProbe:
+          httpGet:
+            path: /index.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /index.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
         volumeMounts:
-        - name: pv-trdindex # web site 파일들을 저장한 pv 정의
-          mountPath: /data/index # data 디렉토리 하위에 각 도메인별로 디렉토리 생성
+        - name: pv-trdindex
+          mountPath: /data/index
       volumes:
       - name: pv-trdindex
         persistentVolumeClaim:
-          claimName: pvc-trdindex # pv-trdindex 볼륨을 정의하는 claim 정의
+          claimName: pvc-trdindex
 
 ---
 
@@ -96,7 +88,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: trd-prd-tomsign
+  name: trd-tomsign
   namespace: trd-backend
   labels:
     app: sign-app
@@ -137,20 +129,20 @@ spec:
           limits:
             memory: 256Mi
             cpu: 200m
-#        livenessProbe:
-#          httpGet:
-#            path: /signup.jsp
-#            port: 8080
-#          initialDelaySeconds: 60
-#          periodSeconds: 10
-#        readinessProbe:
-#          httpGet:
-#            path: /signup.jsp
-#            port: 8080
-#          initialDelaySeconds: 60
-#          periodSeconds: 10
-#          successThreshold: 1
-#          failureThreshold: 5
+        livenessProbe:
+          httpGet:
+            path: /signup.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /signup.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
         volumeMounts:
         - name: pv-trdsign
           mountPath: /data/sign
@@ -171,6 +163,264 @@ spec:
     app: sign-app
   type: ClusterIP
   clusterIP: 172.20.10.40
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      
+---
+
+#tom-login.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trd-tomlogin
+  namespace: trd-backend
+  labels:
+    app: login-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: login-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: login-app
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - login-app
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.2
+        name: tomalb
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 200m
+          limits:
+            memory: 256Mi
+            cpu: 200m
+        livenessProbe:
+          httpGet:
+            path: /login.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /login.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+        volumeMounts:
+        - name: pv-trdlogin
+          mountPath: /data/login
+      volumes:
+      - name: pv-trdlogin
+        persistentVolumeClaim:
+          claimName: pvc-trdlogin
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomlogin-svc
+  namespace: trd-backend
+spec:
+  selector:
+    app: login-app
+  type: ClusterIP
+  clusterIP: 172.20.10.60
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+---
+
+# tom-doc.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trd-tomdoc
+  namespace: trd-backend
+  labels:
+    app: doc-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: doc-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: doc-app
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - doc-app
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.2
+        name: trd-tomdoc
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 200m
+          limits:
+            memory: 256Mi
+            cpu: 200m
+        livenessProbe:
+          httpGet:
+            path: /docs-search.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /docs-search.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+        volumeMounts:
+        - name: pv-trddoc
+          mountPath: /data/doc
+      volumes:
+      - name: pv-trddoc
+        persistentVolumeClaim:
+          claimName: pvc-trddoc
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: trd-tomdoc-svc
+  namespace: trd-backend
+spec:
+  selector:
+    app: doc-app
+  type: ClusterIP
+  clusterIP: 172.20.10.80
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      
+---
+
+# tom-docrg.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trd-tomdocrg
+  namespace: trd-backend
+  labels:
+    app: docrg-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: docrg-app
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  template:
+    metadata:
+      labels:
+        app: docrg-app
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - docrg-app
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.2
+        name: trd-tomdocrg
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 200m
+          limits:
+            memory: 256Mi
+            cpu: 200m
+        livenessProbe:
+          httpGet:
+            path: /docs-register.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /docs-registe.jsp
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
+        volumeMounts:
+        - name: pv-trddocrg
+          mountPath: /data/docrg
+      volumes:
+      - name: pv-trddocrg
+        persistentVolumeClaim:
+          claimName: pvc-trddocrg
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomdocrg-svc
+  namespace: trd-backend
+spec:
+  selector:
+    app: docrg-app
+  type: ClusterIP
+  clusterIP: 172.20.10.100
   ports:
     - protocol: TCP
       port: 8080
