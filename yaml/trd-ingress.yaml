@@ -37,7 +37,7 @@ spec:
             name: trd-login-svc
             port:
               number: 80
-      - path: /products-search.jsp
+      - path: /product-search.jsp
         pathType: Prefix
         backend:
           service:
