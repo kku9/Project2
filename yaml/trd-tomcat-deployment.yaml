@@ -39,7 +39,7 @@ spec:
 #             topologyKey: 
 #            whenUnsatisfiable: ScheduleAnyway
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.0
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.1
         name: trd-tomindex
         ports:
         - containerPort: 8080
@@ -126,7 +126,7 @@ spec:
                 - sign-app
             topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.0
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.1
         name: tom-sign
         ports:
         - containerPort: 8080
