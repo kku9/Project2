@@ -37,11 +37,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
           limits:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
         livenessProbe:
           httpGet:
             path: /index.jsp
@@ -113,11 +113,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
           limits:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
         livenessProbe:
           httpGet:
             path: /signup.jsp
@@ -189,11 +189,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
           limits:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
         livenessProbe:
           httpGet:
             path: /login.jsp
@@ -266,11 +266,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
           limits:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
         livenessProbe:
           httpGet:
             path: /docs-search.jsp
@@ -343,11 +343,11 @@ spec:
         - containerPort: 80
         resources:
           requests:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
           limits:
-            memory: 128Mi
-            cpu: 100m
+            memory: 64Mi
+            cpu: 50m
         livenessProbe:
           httpGet:
             path: /docs-register.jsp
