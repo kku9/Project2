@@ -95,7 +95,7 @@ spec:
       storage: 5Gi
 
 ---
-# doc-pvc.yaml
+# book-pvc.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
