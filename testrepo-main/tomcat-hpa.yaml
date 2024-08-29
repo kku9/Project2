@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-was
+spec:
+  maxReplicas: 10
+  minReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: 1st-was
+
+  # CPU 사용률이 50% 수치를 초과했을 때 오토스케일링이 동작하도록 설정했습니다.  
+  # jmeter 툴로 부하 테스트를 실행했을 때 Tomcat 디플로이먼트의 파드 개수가 
+  # 쉽게 늘어나는 것이 식별되었습니다.
+  # 또한 리소스 사용량 역시 nginx 디플로이먼트에 비해 높게 설정하여 
+  # CPU 사용률이 50%을 초과했을 때 오토스케일링을 적용하는 것으로 결정하였습니다.
+  
+  targetCPUUtilizationPercentage: 50

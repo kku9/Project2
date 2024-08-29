@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 1st-was
+  labels:
+  
+# nginx-main deployment와 같은 key 사용 (label's value만 다르게 설정)
+
+    app: was-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: was-app
+
+  # 저희는 image를 통한 RollingUpdate를 테스트할 때 
+  # Tomcat 컨테이너의 order.jsp 파일에 판매 중인 제품, 식품 이미지를 저장한 도커 이미지와
+  # "SOLD OUT" 처리된 제품, 식품 이미지를 저장한 도커 이미지로 나누어 빌드 작업을 진행했습니다.
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: was-app
+    spec:
+      containers:
+
+        # 판매 중인 이미지가 저장된 이미지 버전은 jinwoo0824/tomcat:v1.4 버전입니다.
+        # 매진된 이미지가 저장된 이미지 버전은 jinwoo0824/tomcat:v2.0 버전입니다.
+        # 식품이나 제품의 재고가 매진되어 판매할 수 없는 상태를 나타낼 때, 
+        # tomcat:v2.0 버전으로 롤링 업데이트하여 client가 현 카페의 상황을 파악할 수 있게 구현하였습니다.
+        
+        - image: jinwoo0824/tomcat:v1.4
+          name: was
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+
+# web service에 필요한 file들 (modal.html, 각 jsp file, ...)을 
+# tomcat server에 모두 저장됩니다.
+# 많은 부하가 쏠리므로 최대 resource usage을 400Mi, 400M로 
+# 높게 설정헸습니다.
+
+          resources:
+            limits:
+              memory: 400Mi
+              cpu: 400m
+          volumeMounts:
+            - name: pv-was
+              mountPath: /1st-was
+      volumes:
+        - name: pv-was
+          persistentVolumeClaim:
+            claimName: pvcwas
+      nodeSelector:
+        app: was-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: was-svc
+spec:
+  selector:
+  
+    # 노드가 app: was-app 레이블만 서비스 처리를 할 수 있도록 적용했습니다.
+    # 리소스 사용량을 통제하여 가용성을 높였습니다.
+    
+    app: was-app
+    
+  # 서비스 타입은 Tomcat에 ClusterIP로 설정하여
+  # 클러스터 내부에서만 접근이 가능하도록 설정했습니다.
+  # web service를 진행하는 파일들이 대거 저장되어 있기 때문에
+  # 보안성을 높였습니다.
+  
+  type: ClusterIP
+  clusterIP: 10.100.100.103
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

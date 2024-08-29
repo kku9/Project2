@@ -1,0 +1,20 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-web
+spec:
+  # 오토스케일링 동안 늘어날 수 있는 최대 파드 개수입니다.
+  maxReplicas: 10
+  # 기본으로 동작되는 최소 파드 개수입니다.
+  minReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    # 1st-web 디플로이먼트에 대한 오토스케일링을 정의합니다.
+    name: 1st-web
+    
+  # CPU 사용률이 20% 수치를 초과했을 때 오토스케일링이 동작하도록 설정했습니다.
+  # 저희는 Tomcat의 부하를 덜어주기 위해 nginx 디플로이먼트를 운영하는 것이기 때문에 
+  # jmeter 툴로 부하 테스트를 실행했을 때 그다지 많은 리소스 사용이 발생하지 않았습니다.
+  
+  targetCPUUtilizationPercentage: 20
