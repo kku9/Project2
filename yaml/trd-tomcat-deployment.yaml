@@ -99,7 +99,7 @@ spec:
           matchLabels:
             app: sign-app
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrrollingupdatev1.0
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrollingupdatev1.0
         name: trd-tomsign
         ports:
         - containerPort: 8080
