@@ -44,4 +44,35 @@ spec:
             name: trd-book-svc
             port:
               number: 80
+  - host: www.noljago.store
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-index-svc
+            port:
+              number: 80
+      - path: /signup.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-sign-svc
+            port:
+              number: 80
+      - path: /login.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-login-svc
+            port:
+              number: 80
+      - path: /product-search.jsp
+        pathType: Prefix
+        backend:
+          service:
+            name: trd-book-svc
+            port:
+              number: 80
 
