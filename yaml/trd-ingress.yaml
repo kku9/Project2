@@ -9,11 +9,11 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:412381775968:certificate/cde03f26-cce5-41b5-b30a-e9584aac856a
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:412381775968:certificate/2ba52f82-c20c-4d17-86db-eed6bc985ebb
 spec:
   ingressClassName: alb
   rules: 
-  - host: www.noljago.store
+  - host: www.gitchang.store
     http:
       paths:
       - path: /
