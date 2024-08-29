@@ -100,7 +100,7 @@ spec:
             app: sign-app
       containers:
       - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:rollingupdatev1.0
-        name: tom-sign
+        name: trd-tomsign
         ports:
         - containerPort: 8080
         resources:
@@ -161,7 +161,7 @@ spec:
             app: login-app
       containers:
       - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:rollingupdatev1.0
-        name: tomalb
+        name: trd-tomlogin
         ports:
         - containerPort: 8080
         resources:
