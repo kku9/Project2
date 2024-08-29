@@ -10,7 +10,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-tomindex
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 40
   
 ---
 
@@ -26,7 +26,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-tomsign
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 40
   
 ---
 
@@ -42,7 +42,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-tomlogin
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 40
   
 ---
 
@@ -58,4 +58,4 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-tombook
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 40
