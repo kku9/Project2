@@ -53,14 +53,14 @@ spec:
           httpGet:
             path: /index.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
         readinessProbe:
           httpGet:
             path: /index.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
           successThreshold: 1
           failureThreshold: 5
         volumeMounts:
@@ -128,14 +128,14 @@ spec:
           httpGet:
             path: /signup.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
         readinessProbe:
           httpGet:
             path: /signup.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
           successThreshold: 1
           failureThreshold: 5
         volumeMounts:
@@ -203,14 +203,14 @@ spec:
           httpGet:
             path: /login.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
         readinessProbe:
           httpGet:
             path: /login.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
           successThreshold: 1
           failureThreshold: 5
         volumeMounts:
@@ -278,14 +278,14 @@ spec:
           httpGet:
             path: /product-search.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
         readinessProbe:
           httpGet:
             path: /product-search.jsp
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 90
+          periodSeconds: 20
           successThreshold: 1
           failureThreshold: 5
         volumeMounts:
