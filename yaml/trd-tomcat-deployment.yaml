@@ -49,20 +49,6 @@ spec:
           limits:
             memory: 256Mi
             cpu: 200m
-        livenessProbe:
-          httpGet:
-            path: /index.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-        readinessProbe:
-          httpGet:
-            path: /index.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-          successThreshold: 1
-          failureThreshold: 5
         volumeMounts:
         - name: pv-trdindex
           mountPath: /data/index
@@ -124,20 +110,6 @@ spec:
           limits:
             memory: 256Mi
             cpu: 200m
-        livenessProbe:
-          httpGet:
-            path: /signup.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-        readinessProbe:
-          httpGet:
-            path: /signup.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-          successThreshold: 1
-          failureThreshold: 5
         volumeMounts:
         - name: pv-trdsign
           mountPath: /data/sign
@@ -199,20 +171,6 @@ spec:
           limits:
             memory: 256Mi
             cpu: 200m
-        livenessProbe:
-          httpGet:
-            path: /login.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-        readinessProbe:
-          httpGet:
-            path: /login.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-          successThreshold: 1
-          failureThreshold: 5
         volumeMounts:
         - name: pv-trdlogin
           mountPath: /data/login
@@ -274,20 +232,6 @@ spec:
           limits:
             memory: 256Mi
             cpu: 200m
-        livenessProbe:
-          httpGet:
-            path: /product-search.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-        readinessProbe:
-          httpGet:
-            path: /product-search.jsp
-            port: 8080
-          initialDelaySeconds: 90
-          periodSeconds: 20
-          successThreshold: 1
-          failureThreshold: 5
         volumeMounts:
         - name: pv-trdbook
           mountPath: /data/book
