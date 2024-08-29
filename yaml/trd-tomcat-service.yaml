@@ -54,7 +54,7 @@ metadata:
   namespace: trd-backend
 spec:
   selector:
-    app: login-app
+    app: book-app
   type: ClusterIP
   clusterIP: 172.20.10.80
   ports:
