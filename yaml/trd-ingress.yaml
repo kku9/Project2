@@ -44,7 +44,7 @@ spec:
             name: trd-book-svc
             port:
               number: 80
-  - host: www.noljago.store
+  - host: org.noljago.store
     http:
       paths:
       - path: /
