@@ -10,7 +10,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-index
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 20
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -24,7 +24,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-sign
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 20
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -38,7 +38,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-login
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 20
 ---
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
@@ -52,4 +52,4 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: trd-prd-book
-  targetCPUUtilizationPercentage: 50
+  targetCPUUtilizationPercentage: 20
