@@ -160,7 +160,7 @@ spec:
           matchLabels:
             app: login-app
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrservicev3.5
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev3.5
         name: trd-tomlogin
         ports:
         - containerPort: 8080
