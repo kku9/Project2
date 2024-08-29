@@ -13,7 +13,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules: 
-  - host: www.gitchang.store
+  - host: www.noljago.store
     http:
       paths:
       - path: /index.jsp
