@@ -49,6 +49,20 @@ spec:
             limits:
               memory: 128Mi
               cpu: 100m
+        livenessProbe:
+          httpGet:
+            path: /index.jsp 
+            port: 80
+          initialDelaySeconds: 60 
+          periodSeconds: 10 
+        readinessProbe:
+          httpGet:
+            path: /index.jsp
+            port: 80
+          initialDelaySeconds: 60 
+          periodSeconds: 10 # 이후 매 10초마다
+          successThreshold: 1 
+          failureThreshold: 5
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -101,6 +115,20 @@ spec:
             limits:
               memory: 128Mi
               cpu: 100m
+        livenessProbe:
+          httpGet:
+            path: /signup.jsp 
+            port: 80
+          initialDelaySeconds: 60
+          periodSeconds: 10 
+        readinessProbe:
+          httpGet:
+            path: /signup.jsp
+            port: 80
+          initialDelaySeconds: 60 
+          periodSeconds: 10 
+          successThreshold: 1 
+          failureThreshold: 5  
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -153,7 +181,20 @@ spec:
             limits:
               memory: 256Mi
               cpu: 200m
-          livenessProbe:
+        livenessProbe:
+          httpGet:
+            path: /login.jsp 
+            port: 80
+          initialDelaySeconds: 60
+          periodSeconds: 10 
+        readinessProbe:
+          httpGet:
+            path: /login.jsp
+            port: 80
+          initialDelaySeconds: 60 
+          periodSeconds: 10 
+          successThreshold: 1 
+          failureThreshold: 5 
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -206,3 +247,17 @@ spec:
             limits:
               memory: 128Mi
               cpu: 100m
+        livenessProbe:
+          httpGet:
+            path: /product-search.jsp 
+            port: 80
+          initialDelaySeconds: 60
+          periodSeconds: 10 
+        readinessProbe:
+          httpGet:
+            path: /product-search.jsp
+            port: 80
+          initialDelaySeconds: 60 
+          periodSeconds: 10 
+          successThreshold: 1 
+          failureThreshold: 5 
