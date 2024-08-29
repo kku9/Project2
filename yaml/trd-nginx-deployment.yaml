@@ -31,12 +31,12 @@ spec:
                       - index-app
               topologyKey: "kubernetes.io/hostname"
       topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: "kubernetes.io/hostname"
-        whenUnsatisfiable: "ScheduleAnyway"
-        labelSelector:
-          matchLabels:
-            app: index-app
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "ScheduleAnyway"
+          labelSelector:
+            matchLabels:
+              app: index-app
       containers:
         - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:nginxindexv1.0
           name: trd-index
@@ -60,7 +60,7 @@ spec:
               path: /index.jsp
               port: 80
             initialDelaySeconds: 60 
-            periodSeconds: 10 # 이후 매 10초마다
+            periodSeconds: 10 
             successThreshold: 1 
             failureThreshold: 5
 ---
@@ -97,12 +97,12 @@ spec:
                       - sign-app
               topologyKey: "kubernetes.io/hostname"
       topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: "kubernetes.io/hostname"
-        whenUnsatisfiable: "DoNotSchedule"
-        labelSelector:
-          matchLabels:
-            app: sign-app
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "DoNotSchedule"
+          labelSelector:
+            matchLabels:
+              app: sign-app
       containers:
         - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:nginxsignv1.0
           name: trd-sign
@@ -163,12 +163,12 @@ spec:
                       - login-app
               topologyKey: "kubernetes.io/hostname"
       topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: "kubernetes.io/hostname"
-        whenUnsatisfiable: "DoNotSchedule"
-        labelSelector:
-          matchLabels:
-            app: login-app
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "DoNotSchedule"
+          labelSelector:
+            matchLabels:
+              app: login-app
       containers:
         - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:nginxloginv1.0
           name: trd-login
@@ -181,20 +181,20 @@ spec:
             limits:
               memory: 256Mi
               cpu: 200m
-        livenessProbe:
-          httpGet:
-            path: /login.jsp 
-            port: 80
-          initialDelaySeconds: 60
-          periodSeconds: 10 
-        readinessProbe:
-          httpGet:
-            path: /login.jsp
-            port: 80
-          initialDelaySeconds: 60 
-          periodSeconds: 10 
-          successThreshold: 1 
-          failureThreshold: 5 
+          livenessProbe:
+            httpGet:
+              path: /login.jsp 
+              port: 80
+            initialDelaySeconds: 60
+            periodSeconds: 10 
+          readinessProbe:
+            httpGet:
+              path: /login.jsp
+              port: 80
+            initialDelaySeconds: 60 
+            periodSeconds: 10 
+            successThreshold: 1 
+            failureThreshold: 5 
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -229,12 +229,12 @@ spec:
                       - book-app
               topologyKey: "kubernetes.io/hostname"
       topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: "kubernetes.io/hostname"
-        whenUnsatisfiable: "ScheduleAnyway"
-        labelSelector:
-          matchLabels:
-            app: book-app
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: "ScheduleAnyway"
+          labelSelector:
+            matchLabels:
+              app: book-app
       containers:
         - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:nginxbookv1.0
           name: trd-book
@@ -260,4 +260,4 @@ spec:
             initialDelaySeconds: 60 
             periodSeconds: 10 
             successThreshold: 1 
-            failureThreshold: 5 
+            failureThreshold: 5
