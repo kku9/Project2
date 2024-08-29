@@ -70,22 +70,6 @@ spec:
       - name: pv-trdindex
         persistentVolumeClaim:
           claimName: pvc-trdindex
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: tom-index-svc
-  namespace: trd-backend
-spec:
-  selector:
-    app: index-app
-  type: ClusterIP
-  clusterIP: 172.20.10.20
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
 
 ---
 
@@ -164,23 +148,6 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: trd-tomsign-svc
-  namespace: trd-backend
-spec:
-  selector:
-    app: sign-app
-  type: ClusterIP
-  clusterIP: 172.20.10.40
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -256,23 +223,6 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: tomlogin-svc
-  namespace: trd-backend
-spec:
-  selector:
-    app: login-app
-  type: ClusterIP
-  clusterIP: 172.20.10.60
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-
----
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -345,20 +295,3 @@ spec:
       - name: pv-trdbook
         persistentVolumeClaim:
           claimName: pvc-trdbook
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: trd-tombook-svc
-  namespace: trd-backend
-spec:
-  selector:
-    app: book-app
-  type: ClusterIP
-  clusterIP: 172.20.10.80
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
