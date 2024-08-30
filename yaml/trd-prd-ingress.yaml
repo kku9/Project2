@@ -27,7 +27,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: trd-signup-svc
+              name: trd-sign-svc
               port:
                 number: 80
         - path: /login.jsp
