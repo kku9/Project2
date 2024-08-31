@@ -16,7 +16,7 @@ spec:
   - host: www.gitchang.store
     http:
       paths:
-        - path: /index.jsp
+        - path: /
           pathType: Prefix
           backend:
             service:
