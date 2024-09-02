@@ -38,7 +38,7 @@ spec:
           matchLabels:
             app: index-app
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrollingupdatev1.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev4.0
         name: trd-tomindex
         ports:
         - containerPort: 8080
@@ -113,7 +113,7 @@ spec:
           matchLabels:
             app: sign-app
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrollingupdatev1.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev4.0
         name: trd-tomindex
         name: trd-tomsign
         ports:
@@ -189,7 +189,7 @@ spec:
           matchLabels:
             app: login-app
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrollingupdatev1.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev4.0
         name: trd-tomindex
         name: trd-tomlogin
         ports:
@@ -265,7 +265,7 @@ spec:
           matchLabels:
             app: book-app
       containers:
-      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdrollingupdatev1.3
+      - image: 412381775968.dkr.ecr.ap-northeast-2.amazonaws.com/trd-dockerhub:trdservicev4.0
         name: trd-tomindex
         name: trd-tombook
         ports:
