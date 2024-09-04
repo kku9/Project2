@@ -3,7 +3,7 @@
 ## ✈ 배포주소
 
 개발 버전 : version 1.0.0.0 </br>
-도메인 주소 : www.wate </br>
+도메인 주소 : www.noljago.store </br>
 
 ## ✌️버전
 | Version | Description | Date |
