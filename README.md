@@ -95,7 +95,10 @@
 ![architecture1.PNG](img/architecture1.png)
 ![architecture2.PNG](img/architecture2.png)
 
-## 🗂ERD
---ERD
+## 🗂PAGE
+--PAGE
+![image.png](img/image.png)	![image1.png](img/image1.png)
+![image2.png](img/image2.png)	![image3.png](img/image3.png)
+![image4.png](img/image4.png)
 
 
