@@ -16,7 +16,7 @@
 
 ## 🧑‍💻팀원 소개
 
-| 이름 | 구경범 | 황기창 |
+| 이름 | 장정원 | 황기창 |
 | :------------: | :------------: | :------------: |
 |  | <img src="https://avatars.githubusercontent.com/u/174182609?v=4" width="150" /> | <img src="https://avatars.githubusercontent.com/u/154039941?v=4" width="150" /> |
 | 깃허브 | [@kku9](https://github.com/kku9) | [@Hwang-gi](https://github.com/Hawng-gi) |
